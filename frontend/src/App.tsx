@@ -5,9 +5,10 @@ import {
 } from "react-router-dom";
 import { ColorModeContext, useMode } from "./theme/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import RootLayout from "./components/globalLayout/RootLayout";
 import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
-import RootLayout from "./components/globalLayout/RootLayout";
+import Login, { action as loginAction } from "./pages/authentication/Login";
 function App() {
   const { theme, colorMode } = useMode();
   const router = createBrowserRouter([
@@ -17,7 +18,12 @@ function App() {
       children: [
         {
           path: "",
-          element: <Navigate to="admin" replace />,
+          element: <Navigate to="login" replace />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+          action: loginAction,
         },
         {
           path: "admin",

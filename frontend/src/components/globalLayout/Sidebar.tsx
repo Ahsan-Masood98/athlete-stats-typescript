@@ -22,10 +22,12 @@ import {
 } from "@mui/icons-material";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 import DropdownListItem from "../DropdownListItem";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
   const refPicker = useRef<HTMLDivElement>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null); // Specify the type for anchorEl
@@ -40,6 +42,7 @@ const Sidebar = () => {
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
+    navigate("/login");
     setOpenModal(false);
     setAnchorEl(null);
   };
