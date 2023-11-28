@@ -7,8 +7,10 @@ import { ColorModeContext, useMode } from "./theme/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import RootLayout from "./components/globalLayout/RootLayout";
 import ErrorPage from "./pages/Error";
-import Home from "./pages/Home";
+import Home, { loader as statsLoader } from "./pages/Home";
 import Login, { action as loginAction } from "./pages/authentication/Login";
+import Athletes from "./pages/Athletes";
+import Events from "./pages/Events";
 function App() {
   const { theme, colorMode } = useMode();
   const router = createBrowserRouter([
@@ -21,7 +23,7 @@ function App() {
           element: <Navigate to="login" replace />,
         },
         {
-          path: "/login",
+          path: "login",
           element: <Login />,
           action: loginAction,
         },
@@ -33,6 +35,15 @@ function App() {
             {
               path: "",
               element: <Home />,
+              loader: statsLoader,
+            },
+            {
+              path: "athletes",
+              element: <Athletes />,
+            },
+            {
+              path: "events",
+              element: <Events />,
             },
           ],
         },

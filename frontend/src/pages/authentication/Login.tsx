@@ -25,6 +25,7 @@ import * as Yup from "yup";
 import { postCredentials } from "../../services/authServices";
 import { ToastContainer, toast } from "react-toastify";
 import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
+import axios from "axios";
 
 const Login: React.FC = () => {
   const theme = useTheme();
@@ -58,6 +59,7 @@ const Login: React.FC = () => {
   });
   return (
     <>
+      <ToastContainer />
       <Container
         maxWidth="xl"
         sx={{
@@ -68,7 +70,6 @@ const Login: React.FC = () => {
         }}
       >
         <Box m={1} width="80vw">
-          {/* <ToastContainer /> */}
           <Paper elevation={6} sx={{ borderRadius: "10px", p: "10px" }}>
             <Grid container component="main">
               <Grid item xs={12} sm={12} md={6} mt={7} mb={7}>
@@ -216,20 +217,20 @@ export const action = async ({
     const response = await postCredentials(formData, "login");
     const token = response.data.data.token;
     const name = response.data.data.name;
-    toast.success(` ${response.data.message}`);
     localStorage.setItem("token", token);
     localStorage.setItem("name", name);
     return redirect("/admin");
-  } catch (error: any) {
-    console.log({ error });
-    if (error.response.status === 422 || error.response.status === 401) {
-      toast.error(`${error.response.data.message}`, {
-        toastId: "serverResposeError",
-      });
-      return null;
-    }
-    if (error.response.status === 500) {
-      throw json({ message: "Could not Login User." }, { status: 500 });
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 422 || error.response?.status === 401) {
+        toast.error(`${error.response?.data.message}`, {
+          toastId: "serverResposeError",
+        });
+        return null;
+      }
+      if (error.response?.status === 500) {
+        throw json({ message: "Could not Login User." }, { status: 500 });
+      }
     }
   }
 };

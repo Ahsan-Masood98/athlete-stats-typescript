@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { tokens } from "../theme/theme";
+import { NavLink } from "react-router-dom";
 
 interface DropdownOption {
   text: string;
@@ -35,20 +36,50 @@ const DropdownListItem: React.FC<{
   return (
     <>
       <ListItem disablePadding onClick={handleClick}>
-        <StyledListButton>
-          {Icon && <Icon />}
-          <ListItemText>
-            <Typography
-              sx={{
-                ml: 2,
-                fontSize: "inherit",
-              }}
-            >
-              {text}
-            </Typography>
-          </ListItemText>
-          {hasNestedOptions && (open ? <ExpandLess /> : <ExpandMore />)}
-        </StyledListButton>
+        {link ? (
+          <NavLink
+            style={({ isActive }) => {
+              return {
+                textDecoration: "none",
+                color: `${colors.whiteGradient[500]}`,
+                backgroundColor: isActive ? theme.palette.primary.light : "",
+                width: "100%",
+                borderRadius: "10px",
+              };
+            }}
+            to={link}
+          >
+            <StyledListButton>
+              {Icon && <Icon />}
+              <ListItemText>
+                <Typography
+                  sx={{
+                    ml: 2,
+                    fontSize: "inherit",
+                  }}
+                >
+                  {text}
+                </Typography>
+              </ListItemText>
+              {hasNestedOptions && (open ? <ExpandLess /> : <ExpandMore />)}
+            </StyledListButton>
+          </NavLink>
+        ) : (
+          <StyledListButton>
+            {Icon && <Icon />}
+            <ListItemText>
+              <Typography
+                sx={{
+                  ml: 2,
+                  fontSize: "inherit",
+                }}
+              >
+                {text}
+              </Typography>
+            </ListItemText>
+            {hasNestedOptions && (open ? <ExpandLess /> : <ExpandMore />)}
+          </StyledListButton>
+        )}
       </ListItem>
       {open && hasNestedOptions && (
         <List disablePadding>

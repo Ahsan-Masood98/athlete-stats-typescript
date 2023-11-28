@@ -1,0 +1,83 @@
+import http from "./httpServices";
+import config from "./config.json";
+
+// define value type
+
+const apiEndpoint = config.apiUrl + "/publicData";
+export function getAthlete(value: any) {
+  return http.get(apiEndpoint + "/athlete", {
+    params: {
+      ...value,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+}
+export function getTimeRange(value: any) {
+  return http.get(apiEndpoint + "/timeRange", {
+    params: {
+      ...value,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+}
+export function getGender(value: any) {
+  return http.get(apiEndpoint + "/gender", {
+    params: {
+      ...value,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+}
+export function getCompetition(value: any) {
+  return http.get(apiEndpoint + "/competition", {
+    params: {
+      ...value,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+}
+export function getTask(value: any) {
+  return http.get(apiEndpoint + "/tasks", {
+    params: {
+      ...value,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+}
+export function getEvent(value: any) {
+  return http.get(apiEndpoint + "/events", {
+    params: {
+      ...value,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+}
+export function getScoreType(value: any) {
+  return http.get(apiEndpoint + "/scoreTypes", {
+    params: {
+      ...value,
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+}

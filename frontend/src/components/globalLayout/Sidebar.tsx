@@ -22,7 +22,7 @@ import {
 } from "@mui/icons-material";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 import DropdownListItem from "../DropdownListItem";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const theme = useTheme();
@@ -72,15 +72,23 @@ const Sidebar = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography
-            variant="h5"
-            sx={{
+          <Link
+            to={"/admin"}
+            style={{
               textDecoration: "none",
-              color: "inherit",
+              color: `${colors.primary[100]}`,
             }}
           >
-            Athlete Stats
-          </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              Athlete Stats
+            </Typography>
+          </Link>
         </Box>
         <List>
           <DropdownListItem
@@ -137,7 +145,7 @@ const Sidebar = () => {
             <Avatar>
               <Person />
             </Avatar>
-            <Typography variant="body1">{userName}</Typography>
+            <Typography>{userName}</Typography>
             <LogoutTwoToneIcon />
           </UserBox>
         </Paper>
